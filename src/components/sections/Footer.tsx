@@ -146,8 +146,8 @@ const Footer = () => {
                   <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-amber-400" />
                   </div>
-                  <a href="mailto:contact@hapida.in" className="text-slate-400 hover:text-amber-400 transition-colors">
-                    contact@hapida.in
+                  <a href="mailto:info@hapida.in" className="text-slate-400 hover:text-amber-400 transition-colors">
+                    info@hapida.in
                   </a>
                 </li>
                 <li className="flex items-center gap-4">
