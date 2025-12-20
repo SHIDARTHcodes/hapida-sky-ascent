@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Zap, Smartphone, TreePine, ArrowRight, Star } from "lucide-react";
+import { Zap, Smartphone, TreePine, ArrowRight, Star, X, ZoomIn } from "lucide-react";
 
 interface Innovation {
   id: number;
@@ -10,11 +10,44 @@ interface Innovation {
   image: string;
   icon: React.ElementType;
   featured?: boolean;
+  objectPosition?: string;
 }
+
+// Image Lightbox Component
+const ImageLightbox = memo(({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) => (
+  <div 
+    className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 animate-fade-in cursor-pointer"
+    onClick={onClose}
+  >
+    <button
+      onClick={onClose}
+      className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
+    >
+      <X className="w-6 h-6 text-white" />
+    </button>
+    <img
+      src={src}
+      alt={alt}
+      className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl animate-scale-in"
+      onClick={(e) => e.stopPropagation()}
+    />
+  </div>
+));
+
+ImageLightbox.displayName = "ImageLightbox";
 
 const Innovations = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
+
+  const openLightbox = useCallback((src: string, alt: string) => {
+    setLightboxImage({ src, alt });
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxImage(null);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,6 +74,7 @@ const Innovations = () => {
       description: "Fully loaded with advanced features including mobile charging, torch, and Bluetooth calling capabilities.",
       image: "https://hapida.in/wp-content/uploads/2024/03/smart_bambo_stick.jpeg",
       icon: TreePine,
+      objectPosition: "center top", // Show face at top
     },
     {
       id: 2,
@@ -58,6 +92,7 @@ const Innovations = () => {
       description: "Revolutionary footwear that generates power while walking to charge your mobile devices on the go.",
       image: "https://hapida.in/wp-content/uploads/2024/02/WhatsApp-Image-2024-02-26-at-10.04.29-PM-1024x682.jpeg",
       icon: Smartphone,
+      objectPosition: "center top", // Show faces at top
     },
     {
       id: 4,
@@ -108,12 +143,19 @@ const Innovations = () => {
               {/* Glow effect */}
               <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-amber-500/20 blur-[100px]" />
               
-              <div className="relative rounded-2xl overflow-hidden shadow-xl group">
+              <div 
+                className="relative rounded-2xl overflow-hidden shadow-xl group cursor-pointer"
+                onClick={() => openLightbox(innovation.image, innovation.name)}
+              >
                 <img
                   src={innovation.image}
                   alt={innovation.name}
                   className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-700"
+                  style={{ objectPosition: innovation.objectPosition || 'center' }}
                 />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                  <ZoomIn className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
                 <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500 text-white text-xs font-bold uppercase tracking-wider">
                   <Star className="w-3 h-3 fill-white" />
                   Featured
@@ -148,13 +190,22 @@ const Innovations = () => {
               style={{ transitionDelay: `${400 + index * 100}ms` }}
             >
               {/* Innovation Image */}
-              <div className="relative aspect-[4/3] overflow-hidden image-shine">
+              <div 
+                className="relative aspect-[4/3] overflow-hidden image-shine cursor-pointer"
+                onClick={() => openLightbox(innovation.image, innovation.name)}
+              >
                 <img
                   src={innovation.image}
                   alt={innovation.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  style={{ objectPosition: innovation.objectPosition || 'center' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                
+                {/* Zoom overlay on hover */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
                 
                 {/* Icon overlay */}
                 <div className="absolute top-4 right-4 w-12 h-12 rounded-xl bg-white/90 backdrop-blur flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
@@ -188,8 +239,17 @@ const Innovations = () => {
           </Button>
         </div>
       </div>
+
+      {/* Image Lightbox */}
+      {lightboxImage && (
+        <ImageLightbox 
+          src={lightboxImage.src} 
+          alt={lightboxImage.alt} 
+          onClose={closeLightbox} 
+        />
+      )}
     </section>
   );
 };
 
-export default Innovations;
+export default memo(Innovations);
