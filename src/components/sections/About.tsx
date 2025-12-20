@@ -1,63 +1,40 @@
 import { Award, Target, Mountain, Zap, CheckCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.15 }
-    );
-
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+      }
+    }, {
+      threshold: 0.15
+    });
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
     }
-
     return () => observer.disconnect();
   }, []);
-
-  const features = [
-    {
-      icon: Target,
-      title: "Trekking Products",
-      description: "Premium products designed specifically for trek enthusiasts exploring the Himalayas.",
-    },
-    {
-      icon: Mountain,
-      title: "Adventure Gear",
-      description: "Most innovations by Hapida are related to adventure activities and outdoor exploration.",
-    },
-    {
-      icon: Award,
-      title: "Safety Standards",
-      description: "We follow strict safety standards for all the products we innovate and manufacture.",
-    },
-    {
-      icon: Zap,
-      title: "Customisation",
-      description: "Customised products are available according to client's specific requirements.",
-    },
-  ];
-
-  const achievements = [
-    "Honored by CM Trivendra Singh Rawat",
-    "Recognized by Uttarakhand Forest Department",
-    "National Innovation Foundation participant",
-    "Multiple patents pending",
-  ];
-
-  return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="py-24 md:py-32 bg-white relative overflow-hidden"
-    >
+  const features = [{
+    icon: Target,
+    title: "Trekking Products",
+    description: "Premium products designed specifically for trek enthusiasts exploring the Himalayas."
+  }, {
+    icon: Mountain,
+    title: "Adventure Gear",
+    description: "Most innovations by Hapida are related to adventure activities and outdoor exploration."
+  }, {
+    icon: Award,
+    title: "Safety Standards",
+    description: "We follow strict safety standards for all the products we innovate and manufacture."
+  }, {
+    icon: Zap,
+    title: "Customisation",
+    description: "Customised products are available according to client's specific requirements."
+  }];
+  const achievements = ["Honored by CM Trivendra Singh Rawat", "Recognized by Uttarakhand Forest Department", "National Innovation Foundation participant", "Multiple patents pending"];
+  return <section id="about" ref={sectionRef} className="py-24 md:py-32 bg-white relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-radial opacity-30" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-amber-100/50 to-transparent rounded-full blur-3xl" />
@@ -84,11 +61,7 @@ const About = () => {
             <div className="relative">
               {/* Main image */}
               <div className="relative rounded-3xl overflow-hidden shadow-elevated hover-lift">
-                <img 
-                  src="https://hapida.in/wp-content/uploads/2024/03/IMG_4905-836x1024.jpg"
-                  alt="Mr. Ravi Tamta - Founder of HAPIDA"
-                  className="w-full aspect-[4/5] object-cover"
-                />
+                <img src="https://hapida.in/wp-content/uploads/2024/03/IMG_4905-836x1024.jpg" alt="Mr. Ravi Tamta - Founder of HAPIDA" className="w-full aspect-[4/5] object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 
                 {/* Name overlay */}
@@ -101,7 +74,7 @@ const About = () => {
               {/* Floating achievement card */}
               <div className="absolute -right-4 md:-right-8 top-8 glass p-5 rounded-2xl shadow-elevated animate-float max-w-[200px]">
                 <Award className="w-4 h-4 text-amber-500 mb-2" />
-                <p className="text-sm font-semibold text-foreground">Honored by Uttarakhand Government</p>
+                
               </div>
 
               {/* Decorative elements */}
@@ -133,16 +106,12 @@ const About = () => {
             
             {/* Achievements list */}
             <div className="mt-8 space-y-3">
-              {achievements.map((achievement, index) => (
-                <div 
-                  key={achievement}
-                  className="flex items-center gap-3 text-foreground"
-                  style={{ animationDelay: `${500 + index * 100}ms` }}
-                >
+              {achievements.map((achievement, index) => <div key={achievement} className="flex items-center gap-3 text-foreground" style={{
+              animationDelay: `${500 + index * 100}ms`
+            }}>
                   <CheckCircle className="w-5 h-5 text-amber-500 flex-shrink-0" />
                   <span className="font-medium">{achievement}</span>
-                </div>
-              ))}
+                </div>)}
             </div>
             
             {/* Stats */}
@@ -161,25 +130,17 @@ const About = () => {
 
         {/* Features Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <div
-              key={feature.title}
-              className={`group p-8 rounded-3xl bg-white border border-border hover:border-amber-200 shadow-soft hover:shadow-elevated transition-all duration-500 hover-lift card-shine ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${600 + index * 100}ms` }}
-            >
+          {features.map((feature, index) => <div key={feature.title} className={`group p-8 rounded-3xl bg-white border border-border hover:border-amber-200 shadow-soft hover:shadow-elevated transition-all duration-500 hover-lift card-shine ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{
+          transitionDelay: `${600 + index * 100}ms`
+        }}>
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <feature.icon className="w-7 h-7 text-amber-600" />
               </div>
               <h4 className="font-serif text-xl font-bold mb-3">{feature.title}</h4>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
+            </div>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default About;
