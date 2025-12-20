@@ -2,36 +2,64 @@ import { Instagram, Facebook, Twitter, Youtube, Mail, MapPin, Phone, ArrowUp } f
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import hapidaLogo from "@/assets/hapida-logo.png";
-
 const Footer = () => {
-  const socialLinks = [
-    { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/channel/UCQ174TZvhoC4E7Q33BvFNyA", color: "hover:bg-red-500" },
-    { name: "Instagram", icon: Instagram, href: "https://instagram.com/hapida.in", color: "hover:bg-pink-500" },
-    { name: "Facebook", icon: Facebook, href: "https://facebook.com/hapida", color: "hover:bg-blue-600" },
-    { name: "Twitter", icon: Twitter, href: "https://twitter.com/hapida", color: "hover:bg-sky-500" },
-  ];
-
-  const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Innovations", href: "#innovations" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  const innovations = [
-    { name: "Smart Bamboo Stick", href: "#innovations" },
-    { name: "Electrolyte Pump", href: "#innovations" },
-    { name: "Mobile Chargeable Shoes", href: "#innovations" },
-    { name: "Pinepeat Machine", href: "#innovations" },
-  ];
-
+  const socialLinks = [{
+    name: "YouTube",
+    icon: Youtube,
+    href: "https://www.youtube.com/channel/UCQ174TZvhoC4E7Q33BvFNyA",
+    color: "hover:bg-red-500"
+  }, {
+    name: "Instagram",
+    icon: Instagram,
+    href: "https://instagram.com/hapida.in",
+    color: "hover:bg-pink-500"
+  }, {
+    name: "Facebook",
+    icon: Facebook,
+    href: "https://facebook.com/hapida",
+    color: "hover:bg-blue-600"
+  }, {
+    name: "Twitter",
+    icon: Twitter,
+    href: "https://twitter.com/hapida",
+    color: "hover:bg-sky-500"
+  }];
+  const quickLinks = [{
+    name: "Home",
+    href: "#home"
+  }, {
+    name: "About",
+    href: "#about"
+  }, {
+    name: "Innovations",
+    href: "#innovations"
+  }, {
+    name: "Testimonials",
+    href: "#testimonials"
+  }, {
+    name: "Contact",
+    href: "#contact"
+  }];
+  const innovations = [{
+    name: "Smart Bamboo Stick",
+    href: "#innovations"
+  }, {
+    name: "Electrolyte Pump",
+    href: "#innovations"
+  }, {
+    name: "Mobile Chargeable Shoes",
+    href: "#innovations"
+  }, {
+    name: "Pinepeat Machine",
+    href: "#innovations"
+  }];
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
-
-  return (
-    <footer id="contact" className="bg-surface-dark text-white relative overflow-hidden">
+  return <footer id="contact" className="bg-surface-dark text-white relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 pattern-dots" />
@@ -39,7 +67,7 @@ const Footer = () => {
 
       {/* Top wave */}
       <svg viewBox="0 0 1440 120" fill="none" className="w-full -mb-1">
-        <path d="M0 0L60 10C120 20 240 40 360 50C480 60 600 60 720 55C840 50 960 40 1080 35C1200 30 1320 30 1380 30L1440 30V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#1a1f2e"/>
+        <path d="M0 0L60 10C120 20 240 40 360 50C480 60 600 60 720 55C840 50 960 40 1080 35C1200 30 1320 30 1380 30L1440 30V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#1a1f2e" />
       </svg>
 
       <div className="pt-16 pb-8 relative z-10">
@@ -49,11 +77,7 @@ const Footer = () => {
             {/* Brand Column */}
             <div className="lg:col-span-1">
               <div className="mb-6">
-                <img 
-                  src={hapidaLogo} 
-                  alt="HAPIDA SKY Private Limited" 
-                  className="h-16 w-auto object-contain"
-                />
+                <img src={hapidaLogo} alt="HAPIDA SKY Private Limited" className="h-16 w-auto object-contain" />
               </div>
               <p className="text-slate-400 mb-8 leading-relaxed">
                 Empowering hilly areas and village life through science and technology. 
@@ -62,19 +86,10 @@ const Footer = () => {
               
               {/* Social Links */}
               <div className="flex gap-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`group relative w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-slate-300 ${social.color} transition-all duration-500 hover:scale-125 hover:rotate-6 hover:shadow-xl`}
-                    style={{
-                      animation: `float ${2 + index * 0.3}s ease-in-out infinite`,
-                      animationDelay: `${index * 0.2}s`
-                    }}
-                    aria-label={social.name}
-                  >
+                {socialLinks.map((social, index) => <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className={`group relative w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-slate-300 ${social.color} transition-all duration-500 hover:scale-125 hover:rotate-6 hover:shadow-xl`} style={{
+                animation: `float ${2 + index * 0.3}s ease-in-out infinite`,
+                animationDelay: `${index * 0.2}s`
+              }} aria-label={social.name}>
                     {/* Glow effect */}
                     <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-300 blur-md ${social.color.replace('hover:', '')}`} />
                     
@@ -83,8 +98,7 @@ const Footer = () => {
                     
                     {/* Floating particles */}
                     <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400 opacity-0 group-hover:opacity-100 animate-ping" />
-                  </a>
-                ))}
+                  </a>)}
               </div>
             </div>
 
@@ -92,17 +106,12 @@ const Footer = () => {
             <div>
               <h4 className="font-serif text-lg font-bold mb-6 text-white">Quick Links</h4>
               <ul className="space-y-3">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-slate-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2 group"
-                    >
+                {quickLinks.map(link => <li key={link.name}>
+                    <a href={link.href} className="text-slate-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2 group">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {link.name}
                     </a>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
 
@@ -110,17 +119,12 @@ const Footer = () => {
             <div>
               <h4 className="font-serif text-lg font-bold mb-6 text-white">Our Innovations</h4>
               <ul className="space-y-3">
-                {innovations.map((link) => (
-                  <li key={link.name}>
-                    <a
-                      href={link.href}
-                      className="text-slate-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2 group"
-                    >
+                {innovations.map(link => <li key={link.name}>
+                    <a href={link.href} className="text-slate-400 hover:text-amber-400 transition-colors duration-300 flex items-center gap-2 group">
                       <span className="w-1.5 h-1.5 rounded-full bg-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
                       {link.name}
                     </a>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
 
@@ -142,10 +146,7 @@ const Footer = () => {
                   <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-amber-400" />
                   </div>
-                  <a
-                    href="mailto:contact@hapida.in"
-                    className="text-slate-400 hover:text-amber-400 transition-colors"
-                  >
+                  <a href="mailto:contact@hapida.in" className="text-slate-400 hover:text-amber-400 transition-colors">
                     contact@hapida.in
                   </a>
                 </li>
@@ -153,12 +154,9 @@ const Footer = () => {
                   <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0">
                     <Phone className="w-5 h-5 text-amber-400" />
                   </div>
-                  <a
-                    href="tel:+919876543210"
-                    className="text-slate-400 hover:text-amber-400 transition-colors"
-                  >
-                    +91 98765 43210
-                  </a>
+                  <a href="tel:+919876543210" className="text-slate-400 hover:text-amber-400 transition-colors">+91 9410915009
+
+                </a>
                 </li>
               </ul>
             </div>
@@ -182,19 +180,13 @@ const Footer = () => {
             <div className="flex items-center gap-6">
               <a href="#" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Privacy Policy</a>
               <Link to="/terms-and-conditions" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Terms and Condition</Link>
-              <button
-                onClick={scrollToTop}
-                className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white hover:bg-amber-600 hover:-translate-y-1 transition-all shadow-lg shadow-amber-500/30"
-                aria-label="Scroll to top"
-              >
+              <button onClick={scrollToTop} className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white hover:bg-amber-600 hover:-translate-y-1 transition-all shadow-lg shadow-amber-500/30" aria-label="Scroll to top">
                 <ArrowUp className="w-5 h-5" />
               </button>
             </div>
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
