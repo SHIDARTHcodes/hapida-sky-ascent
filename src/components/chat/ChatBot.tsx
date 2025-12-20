@@ -1,5 +1,5 @@
 import { useState, useCallback, memo } from "react";
-import { X, Send, Bot, User, Sparkles, Globe, Facebook, Instagram, Twitter, Youtube, ShoppingBag, Phone } from "lucide-react";
+import { X, Send, Bot, User, Sparkles, Globe, Facebook, Instagram, Twitter, Youtube, ShoppingBag, Phone, ZoomIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Import product images
@@ -28,8 +28,31 @@ const socialLinks = {
 const founderImage = "https://hapida.in/wp-content/uploads/2024/03/IMG_4905-836x1024.jpg";
 const evChargerImage = "https://hapida.in/wp-content/uploads/2024/03/IMG_0792-1024x768.jpg";
 
+// Image Lightbox Component
+const ImageLightbox = memo(({ src, onClose }: { src: string; onClose: () => void }) => (
+  <div 
+    className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 animate-fade-in cursor-pointer"
+    onClick={onClose}
+  >
+    <button
+      onClick={onClose}
+      className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
+    >
+      <X className="w-6 h-6 text-white" />
+    </button>
+    <img
+      src={src}
+      alt="Zoomed view"
+      className="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl animate-scale-in"
+      onClick={(e) => e.stopPropagation()}
+    />
+  </div>
+));
+
+ImageLightbox.displayName = "ImageLightbox";
+
 // Memoized Message Component for performance
-const ChatMessage = memo(({ message }: { message: Message }) => (
+const ChatMessage = memo(({ message, onImageClick }: { message: Message; onImageClick: (src: string) => void }) => (
   <div
     className={`flex gap-2 ${message.role === "user" ? "flex-row-reverse" : ""} animate-fade-up`}
   >
@@ -59,13 +82,21 @@ const ChatMessage = memo(({ message }: { message: Message }) => (
       {message.images && message.images.length > 0 && (
         <div className="grid grid-cols-2 gap-2">
           {message.images.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt="Product"
-              className="w-full h-24 object-cover rounded-xl border border-border shadow-sm hover:scale-105 transition-transform cursor-pointer"
-              loading="lazy"
-            />
+            <div 
+              key={idx} 
+              className="relative group cursor-pointer"
+              onClick={() => onImageClick(img)}
+            >
+              <img
+                src={img}
+                alt="Product"
+                className="w-full h-24 object-cover rounded-xl border border-border shadow-sm group-hover:scale-105 group-hover:shadow-lg transition-all duration-300"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 rounded-xl transition-colors duration-300 flex items-center justify-center">
+                <ZoomIn className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
           ))}
         </div>
       )}
@@ -78,6 +109,7 @@ ChatMessage.displayName = "ChatMessage";
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState<Language>("english");
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -87,6 +119,14 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleImageClick = useCallback((src: string) => {
+    setLightboxImage(src);
+  }, []);
+
+  const closeLightbox = useCallback(() => {
+    setLightboxImage(null);
+  }, []);
 
   const getAIResponse = useCallback((userMessage: string): { content: string; images?: string[] } => {
     const lowerMessage = userMessage.toLowerCase();
@@ -646,7 +686,7 @@ What would you like to know?`,
         {/* Messages */}
         <div className="flex-1 h-[calc(100%-220px)] overflow-y-auto p-4 space-y-3 bg-white">
           {messages.map((message) => (
-            <ChatMessage key={message.id} message={message} />
+            <ChatMessage key={message.id} message={message} onImageClick={handleImageClick} />
           ))}
           {isLoading && (
             <div className="flex gap-2 animate-fade-up">
@@ -687,6 +727,11 @@ What would you like to know?`,
           </div>
         </div>
       </div>
+
+      {/* Image Lightbox */}
+      {lightboxImage && (
+        <ImageLightbox src={lightboxImage} onClose={closeLightbox} />
+      )}
     </>
   );
 };
