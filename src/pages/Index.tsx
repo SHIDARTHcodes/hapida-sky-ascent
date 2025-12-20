@@ -1,16 +1,26 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect, memo } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Hero from "@/components/sections/Hero";
-import About from "@/components/sections/About";
-import Innovations from "@/components/sections/Innovations";
 import Shop from "@/components/sections/Shop";
-import Testimonials from "@/components/sections/Testimonials";
-import Footer from "@/components/sections/Footer";
-import ChatBot from "@/components/chat/ChatBot";
+
+// Lazy load below-the-fold components for faster initial load
+const About = lazy(() => import("@/components/sections/About"));
+const Innovations = lazy(() => import("@/components/sections/Innovations"));
+const Testimonials = lazy(() => import("@/components/sections/Testimonials"));
+const Footer = lazy(() => import("@/components/sections/Footer"));
+const ChatBot = lazy(() => import("@/components/chat/ChatBot"));
+
+// Simple loading skeleton
+const SectionSkeleton = memo(() => (
+  <div className="py-24 flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+  </div>
+));
+
+SectionSkeleton.displayName = "SectionSkeleton";
 
 const Index = () => {
   useEffect(() => {
-    // Smooth scroll behavior
     document.documentElement.style.scrollBehavior = "smooth";
     return () => {
       document.documentElement.style.scrollBehavior = "auto";
@@ -23,14 +33,24 @@ const Index = () => {
       <main>
         <Hero />
         <Shop />
-        <About />
-        <Innovations />
-        <Testimonials />
+        <Suspense fallback={<SectionSkeleton />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <Innovations />
+        </Suspense>
+        <Suspense fallback={<SectionSkeleton />}>
+          <Testimonials />
+        </Suspense>
       </main>
-      <Footer />
-      <ChatBot />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ChatBot />
+      </Suspense>
     </div>
   );
 };
 
-export default Index;
+export default memo(Index);
