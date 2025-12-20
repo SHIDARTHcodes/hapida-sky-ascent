@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import hapidaLogo from "@/assets/hapida-logo.png";
 
 const Navbar = () => {
@@ -16,11 +17,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Innovations", href: "#innovations" },
-    { name: "Shop", href: "#shop" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/#about" },
+    { name: "Innovations", href: "/#innovations" },
+    { name: "Shop", href: "/shop" },
+    { name: "Contact", href: "/#contact" },
   ];
 
   return (
@@ -34,24 +35,34 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center group">
+          <Link to="/" className="flex items-center group">
             <img 
               src={hapidaLogo} 
               alt="HAPIDA SKY Private Limited" 
               className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 link-underline"
-              >
-                {link.name}
-              </a>
+              link.href.startsWith('/') && !link.href.includes('#') ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 link-underline"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 link-underline"
+                >
+                  {link.name}
+                </a>
+              )
             ))}
           </div>
 
@@ -76,15 +87,27 @@ const Navbar = () => {
           <div className="md:hidden mt-4 pb-4 animate-fade-up">
             <div className="flex flex-col gap-2 bg-white rounded-2xl p-4 shadow-elevated">
               {navLinks.map((link, index) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 py-3 px-4 rounded-xl"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('/') && !link.href.includes('#') ? (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 py-3 px-4 rounded-xl"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {link.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 py-3 px-4 rounded-xl"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
               <Button variant="hero" size="default" className="mt-2" asChild>
                 <a href="https://wa.me/919410915009" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>Connect Now</a>
