@@ -1,172 +1,146 @@
-import { ShoppingBag, ArrowRight, Sparkles, Star, Zap, Shield, Truck, Clock, Gift } from "lucide-react";
+import { ShoppingBag, ArrowRight, Sparkles, Star, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 import smartStickBss1 from "@/assets/products/smart-stick-bss1.png";
 import smartStickBss2 from "@/assets/products/smart-stick-bss2.jpg";
 import smartStickBss3 from "@/assets/products/smart-stick-bss3.png";
-import bambooStickBs1 from "@/assets/products/bamboo-stick-bs1.png";
-import bambooStickBs2 from "@/assets/products/bamboo-stick-bs2.png";
 
-const allProducts = [
-  { id: 1, image: smartStickBss1, name: "Smart Stick BSS1", price: 1540, rating: 4.8, badge: "Bestseller" },
-  { id: 2, image: smartStickBss2, name: "Smart Stick BSS-2", price: 3400, originalPrice: 3500, rating: 4.9, badge: "3% OFF" },
-  { id: 3, image: smartStickBss3, name: "BSS3 Premium", price: 5300, rating: 5.0, badge: "Premium" },
-  { id: 4, image: bambooStickBs2, name: "Bamboo Stick BS2", price: 860, rating: 4.6 },
-  { id: 5, image: bambooStickBs1, name: "Bamboo Stick BS1", price: 340, rating: 4.5, badge: "Value Pick" },
+const featuredProducts = [
+  { image: smartStickBss1, name: "Smart Stick BSS1", price: "₹1,540" },
+  { image: smartStickBss2, name: "Smart Stick BSS-2", price: "₹3,400" },
+  { image: smartStickBss3, name: "BSS3 Premium", price: "₹5,300" },
 ];
 
 const Shop = () => {
-  const handleBuyNow = (productName: string, price: number) => {
-    const message = encodeURIComponent(
-      `Hello! I want to purchase "${productName}" (₹${price.toLocaleString('en-IN')}). Please provide me with the order details.`
-    );
-    window.open(`https://wa.me/919410915009?text=${message}`, "_blank");
-  };
-
   return (
-    <section id="shop" className="relative py-20 overflow-hidden bg-gradient-to-b from-amber-50 via-white to-orange-50">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-amber-200/30 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-orange-200/30 rounded-full blur-3xl" />
+    <section id="shop" className="relative py-24 overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-red-500" />
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-300 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-red-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-orange-300 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "0.5s" }} />
+      </div>
+      
+      {/* Pattern Overlay */}
+      <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')]" />
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full text-sm font-bold mb-6 animate-pulse">
-            <Zap className="w-4 h-4" />
-            Limited Time Offers - Shop Now!
-            <Zap className="w-4 h-4" />
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
+          <div className="text-center lg:text-left">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-semibold mb-6 animate-bounce">
+              <Zap className="w-4 h-4" />
+              Limited Time Offers Available!
+            </div>
+            
+            {/* Heading */}
+            <h2 className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight">
+              Shop Our
+              <span className="block text-yellow-200 drop-shadow-lg">Innovation</span>
+            </h2>
+            
+            {/* Description */}
+            <p className="text-xl text-white/90 mb-8 max-w-lg">
+              Experience the future of walking sticks. Smart technology meets traditional craftsmanship from the hills of Uttarakhand.
+            </p>
+            
+            {/* Stats */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-8 mb-10">
+              <div className="text-center">
+                <p className="text-4xl font-bold text-yellow-200">5+</p>
+                <p className="text-white/80 text-sm">Products</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl font-bold text-yellow-200">100%</p>
+                <p className="text-white/80 text-sm">Handcrafted</p>
+              </div>
+              <div className="text-center">
+                <p className="text-4xl font-bold text-yellow-200">500+</p>
+                <p className="text-white/80 text-sm">Happy Customers</p>
+              </div>
+            </div>
+            
+            {/* CTA Button */}
+            <Link to="/shop">
+              <Button 
+                size="lg" 
+                className="group bg-white text-amber-600 hover:bg-yellow-100 hover:text-amber-700 rounded-full px-10 py-7 text-lg font-bold shadow-2xl shadow-black/20 hover:shadow-black/30 transition-all duration-300 hover:scale-105"
+              >
+                <ShoppingBag className="w-6 h-6 mr-3" />
+                Explore Shop
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
+              </Button>
+            </Link>
+            
+            {/* Trust Badges */}
+            <div className="flex items-center justify-center lg:justify-start gap-4 mt-8">
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-5 h-5 text-yellow-300 fill-yellow-300" />
+                ))}
+              </div>
+              <span className="text-white/90 font-medium">Rated 5.0 by customers</span>
+            </div>
           </div>
           
-          <h2 className="text-4xl md:text-6xl font-serif font-bold text-foreground mb-4">
-            Shop Our <span className="text-gradient-gold">Products</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Handcrafted innovation from the hills of Uttarakhand. Each product is made with love and precision.
-          </p>
-        </div>
-
-        {/* Trust Badges */}
-        <div className="flex flex-wrap justify-center gap-6 mb-12">
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-soft">
-            <Truck className="w-5 h-5 text-amber-600" />
-            <span className="text-sm font-medium">Free Shipping</span>
-          </div>
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-soft">
-            <Shield className="w-5 h-5 text-green-600" />
-            <span className="text-sm font-medium">Secure Payment</span>
-          </div>
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-soft">
-            <Gift className="w-5 h-5 text-violet-600" />
-            <span className="text-sm font-medium">Gift Wrapping</span>
-          </div>
-          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-soft">
-            <Clock className="w-5 h-5 text-red-600" />
-            <span className="text-sm font-medium">Fast Delivery</span>
-          </div>
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 mb-12">
-          {allProducts.map((product, index) => (
-            <div
-              key={product.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-500 border border-border/50 hover:-translate-y-2 animate-fade-up"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {/* Image */}
-              <div className="relative aspect-square bg-gradient-to-br from-amber-50 to-orange-50 overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-500"
-                />
-                {product.badge && (
-                  <span className={`absolute top-3 left-3 text-xs font-bold px-2.5 py-1 rounded-full ${
-                    product.badge === "Premium" ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white" :
-                    product.badge === "Bestseller" ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white" :
-                    product.badge === "Value Pick" ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white" :
-                    "bg-gradient-to-r from-red-500 to-red-600 text-white"
-                  }`}>
-                    {product.badge}
-                  </span>
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="p-4">
-                <h3 className="font-bold text-foreground mb-1 group-hover:text-amber-600 transition-colors truncate">
-                  {product.name}
-                </h3>
-                
-                {/* Rating */}
-                <div className="flex items-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-3.5 h-3.5 ${
-                        i < Math.floor(product.rating)
-                          ? "text-amber-400 fill-amber-400"
-                          : "text-slate-200 fill-slate-200"
-                      }`}
-                    />
-                  ))}
-                  <span className="text-xs text-muted-foreground ml-1">({product.rating})</span>
+          {/* Right Content - Product Showcase */}
+          <div className="relative">
+            {/* Main Product Card */}
+            <div className="relative z-10">
+              <Link to="/shop" className="block group">
+                <div className="bg-white/95 backdrop-blur rounded-3xl p-6 shadow-2xl transform group-hover:scale-105 transition-all duration-500 cursor-pointer">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Sparkles className="w-5 h-5 text-amber-500" />
+                    <span className="text-sm font-semibold text-amber-600">Featured Products</span>
+                  </div>
+                  
+                  <div className="grid grid-cols-3 gap-4">
+                    {featuredProducts.map((product, index) => (
+                      <div key={index} className="text-center group/item">
+                        <div className="aspect-square bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl overflow-hidden mb-3 group-hover/item:shadow-lg transition-shadow">
+                          <img 
+                            src={product.image} 
+                            alt={product.name}
+                            className="w-full h-full object-contain p-2 group-hover/item:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                        <p className="text-xs font-medium text-foreground truncate">{product.name}</p>
+                        <p className="text-sm font-bold text-amber-600">{product.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className="mt-6 pt-4 border-t border-border/50 flex items-center justify-between">
+                    <span className="text-muted-foreground text-sm">View all products</span>
+                    <div className="flex items-center gap-2 text-amber-600 font-semibold group-hover:gap-3 transition-all">
+                      Shop Now <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
-
-                {/* Price */}
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xl font-bold text-foreground">
-                    ₹{product.price.toLocaleString('en-IN')}
-                  </span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-muted-foreground line-through">
-                      ₹{product.originalPrice.toLocaleString('en-IN')}
-                    </span>
-                  )}
+              </Link>
+            </div>
+            
+            {/* Floating Elements */}
+            <div className="absolute -top-6 -right-6 bg-red-500 text-white rounded-full w-24 h-24 flex flex-col items-center justify-center shadow-xl animate-bounce z-20">
+              <span className="text-xs">Up to</span>
+              <span className="text-2xl font-bold">3%</span>
+              <span className="text-xs">OFF</span>
+            </div>
+            
+            <div className="absolute -bottom-4 -left-4 bg-white/90 backdrop-blur rounded-2xl p-4 shadow-xl animate-pulse z-20">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">🇮🇳</span>
                 </div>
-
-                {/* Buy Button */}
-                <Button
-                  variant="hero"
-                  size="sm"
-                  className="w-full gap-2 rounded-xl"
-                  onClick={() => handleBuyNow(product.name, product.price)}
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  Buy Now
-                </Button>
+                <div>
+                  <p className="font-semibold text-foreground">Made in India</p>
+                  <p className="text-xs text-muted-foreground">Almora, Uttarakhand</p>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        {/* View All CTA */}
-        <div className="text-center">
-          <Link to="/shop">
-            <Button 
-              size="lg"
-              className="group bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-full px-10 py-7 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-            >
-              <Sparkles className="w-5 h-5 mr-2" />
-              View All Products
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" />
-            </Button>
-          </Link>
-        </div>
-
-        {/* Social Proof */}
-        <div className="mt-12 text-center">
-          <div className="inline-flex items-center gap-4 bg-white/80 backdrop-blur rounded-full px-6 py-3 shadow-soft">
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-amber-400 fill-amber-400" />
-              ))}
-            </div>
-            <span className="text-sm font-medium text-foreground">
-              <span className="font-bold">500+</span> Happy Customers | <span className="font-bold">100%</span> Made in India 🇮🇳
-            </span>
           </div>
         </div>
       </div>
