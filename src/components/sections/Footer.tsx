@@ -1,5 +1,6 @@
 import { Instagram, Facebook, Twitter, Youtube, Mail, MapPin, Phone, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import hapidaLogo from "@/assets/hapida-logo.png";
 
 const Footer = () => {
@@ -180,7 +181,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-6">
               <a href="#" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Terms and Condition</a>
+              <Link to="/terms-and-conditions" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Terms and Condition</Link>
               <button
                 onClick={scrollToTop}
                 className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white hover:bg-amber-600 hover:-translate-y-1 transition-all shadow-lg shadow-amber-500/30"
