@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import hapidaLogo from "@/assets/hapida-logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,14 +34,12 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center font-serif text-xl font-bold text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
-              H
-            </div>
-            <span className="text-xl font-serif font-bold hidden sm:block">
-              <span className="text-foreground">HAPIDA</span>{" "}
-              <span className="text-gradient-gold">SKY</span>
-            </span>
+          <a href="#home" className="flex items-center group">
+            <img 
+              src={hapidaLogo} 
+              alt="HAPIDA SKY Private Limited" 
+              className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            />
           </a>
 
           {/* Desktop Navigation */}
