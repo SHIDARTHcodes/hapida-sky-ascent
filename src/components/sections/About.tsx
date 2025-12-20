@@ -1,4 +1,4 @@
-import { Award, Target, Users, Zap } from "lucide-react";
+import { Award, Target, Mountain, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 const About = () => {
@@ -25,23 +25,23 @@ const About = () => {
   const features = [
     {
       icon: Target,
-      title: "Our Mission",
-      description: "To deliver exceptional products that exceed customer expectations with uncompromising quality.",
+      title: "Trekking Products",
+      description: "Premium products designed specifically for trek enthusiasts exploring the Himalayas.",
     },
     {
-      icon: Users,
-      title: "Customer First",
-      description: "Building lasting relationships through personalized service and genuine care for our customers.",
+      icon: Mountain,
+      title: "Adventure Gear",
+      description: "Most innovations by Hapida are related to adventure activities and outdoor exploration.",
     },
     {
       icon: Award,
-      title: "Excellence",
-      description: "Every product is carefully selected to meet the highest standards of quality and craftsmanship.",
+      title: "Safety Standards",
+      description: "We follow strict safety standards for all the products we innovate and manufacture.",
     },
     {
       icon: Zap,
-      title: "Innovation",
-      description: "Constantly evolving to bring you the latest trends and cutting-edge products in the market.",
+      title: "Customisation",
+      description: "Customised products are available according to client's specific requirements.",
     },
   ];
 
@@ -58,14 +58,14 @@ const About = () => {
         {/* Section Header */}
         <div className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <span className="text-sm font-medium text-primary uppercase tracking-wider">
-            About Us
+            About HAPIDA
           </span>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
-            Building <span className="text-gradient-gold">Excellence</span> Together
+            Our <span className="text-gradient-gold">Journey</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            HAPIDA SKY PRIVATE LIMITED is committed to transforming your shopping experience 
-            with premium products, exceptional service, and unwavering dedication to quality.
+            HAPIDA is a hub of innovation and creativity, dedicated to exploring groundbreaking 
+            ideas and revolutionary technologies that shape the future of hilly areas and villages.
           </p>
         </div>
 
@@ -75,56 +75,63 @@ const About = () => {
           <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <div className="relative">
               <div className="aspect-square rounded-2xl bg-gradient-to-br from-surface-elevated to-surface overflow-hidden border border-border/50">
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-gold-light via-primary to-gold-dark flex items-center justify-center mb-6">
-                      <span className="text-5xl font-serif font-bold text-primary-foreground">F</span>
-                    </div>
-                    <h3 className="font-serif text-2xl font-bold mb-2">Founder Name</h3>
-                    <p className="text-primary font-medium mb-4">Founder & CEO</p>
-                    <p className="text-muted-foreground text-sm">
-                      A visionary leader with a passion for excellence and innovation in the e-commerce industry. 
-                      Dedicated to building a brand that stands for quality and customer satisfaction.
-                    </p>
-                  </div>
-                </div>
+                <img 
+                  src="https://hapida.in/wp-content/uploads/2024/03/IMG_4905-836x1024.jpg"
+                  alt="Mr. Ravi Tamta - Founder of HAPIDA"
+                  className="w-full h-full object-cover"
+                />
               </div>
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-primary/30 rounded-2xl" />
               <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-primary/10 rounded-2xl" />
+              
+              {/* Achievement badge */}
+              <div className="absolute bottom-4 left-4 right-4 glass p-4 rounded-xl">
+                <div className="flex items-center gap-3">
+                  <Award className="w-8 h-8 text-primary" />
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Honored by</p>
+                    <p className="text-xs text-muted-foreground">CM Trivendra Singh Rawat</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Company Story */}
+          {/* Founder Info */}
           <div className={`transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <h3 className="font-serif text-2xl md:text-3xl font-bold mb-6">
-              Our <span className="text-gradient-gold">Story</span>
+            <span className="text-sm font-medium text-primary uppercase tracking-wider">
+              Founder
+            </span>
+            <h3 className="font-serif text-2xl md:text-3xl font-bold mt-2 mb-4">
+              Mr. <span className="text-gradient-gold">Ravi Tamta</span>
             </h3>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                Founded with a vision to revolutionize the e-commerce landscape, HAPIDA SKY 
-                PRIVATE LIMITED has grown from a small startup to a trusted name in premium retail.
+                A young entrepreneur based in Almora, Uttarakhand, known for his research 
+                work related to innovation in hilly areas and village life.
               </p>
               <p>
-                Our journey began with a simple belief: every customer deserves access to 
-                exceptional products backed by outstanding service. Today, we continue to 
-                uphold these values while expanding our reach and offerings.
+                His innovations include <span className="text-foreground font-medium">Mobile Chargeable Shoes</span>, 
+                <span className="text-foreground font-medium"> Smart Bamboo Stick</span>, and the 
+                <span className="text-foreground font-medium"> World's Fastest Electric Vehicle Charger</span> - 
+                and the count is still going on.
               </p>
               <p>
-                We take pride in our carefully curated selection, ensuring each product 
-                meets our rigorous standards before reaching our customers.
+                We believe in the power of science and technology to transcend boundaries 
+                and transform lives, particularly in hilly areas and villages.
               </p>
             </div>
             
             {/* Quick stats */}
             <div className="grid grid-cols-2 gap-6 mt-8">
               <div className="p-4 rounded-xl glass">
-                <div className="text-2xl font-serif font-bold text-gradient-gold">5+</div>
-                <div className="text-sm text-muted-foreground">Years of Excellence</div>
+                <div className="text-2xl font-serif font-bold text-gradient-gold">Almora</div>
+                <div className="text-sm text-muted-foreground">Based in Uttarakhand</div>
               </div>
               <div className="p-4 rounded-xl glass">
-                <div className="text-2xl font-serif font-bold text-gradient-gold">50+</div>
-                <div className="text-sm text-muted-foreground">Product Categories</div>
+                <div className="text-2xl font-serif font-bold text-gradient-gold">10+</div>
+                <div className="text-sm text-muted-foreground">Patents & Innovations</div>
               </div>
             </div>
           </div>
