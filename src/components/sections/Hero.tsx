@@ -1,7 +1,26 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
 
 const Hero = () => {
+  const fullText = "HAPIDA SKY PRIVATE LIMITED is a hub of innovation dedicated to transforming village life with groundbreaking technologies. From Smart Bamboo Sticks to the World's Fastest EV Charger — we dare to innovate.";
+  
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      }, 30);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTyping(false);
+    }
+  }, [currentIndex, fullText]);
+
   return (
     <section
       id="home"
@@ -49,11 +68,17 @@ const Hero = () => {
             <span className="animate-fade-up delay-200">Through Technology</span>
           </h1>
 
-          {/* Subheading */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-up delay-300">
-            HAPIDA SKY is a hub of innovation dedicated to transforming village life 
-            with groundbreaking technologies. From <span className="text-foreground font-medium">Smart Bamboo Sticks</span> to the 
-            <span className="text-foreground font-medium"> World's Fastest EV Charger</span> — we dare to innovate.
+          {/* Subheading with typewriter effect */}
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-up delay-300 min-h-[120px]">
+            {displayedText.split(/(HAPIDA SKY PRIVATE LIMITED|Smart Bamboo Sticks|World's Fastest EV Charger)/).map((part, index) => {
+              if (part === "HAPIDA SKY PRIVATE LIMITED" || part === "Smart Bamboo Sticks" || part === "World's Fastest EV Charger") {
+                return <span key={index} className="text-foreground font-semibold text-gradient-gold">{part}</span>;
+              }
+              return <span key={index}>{part}</span>;
+            })}
+            {isTyping && (
+              <span className="inline-block w-0.5 h-5 bg-amber-500 ml-1 animate-pulse" />
+            )}
           </p>
 
           {/* CTA Buttons */}
