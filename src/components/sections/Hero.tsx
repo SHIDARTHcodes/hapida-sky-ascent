@@ -1,9 +1,25 @@
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
 
 const Hero = () => {
   const fullText = "HAPIDA SKY PRIVATE LIMITED is a hub of innovation dedicated to transforming village life with groundbreaking technologies. From Smart Bamboo Sticks to the World's Fastest EV Charger — we dare to innovate.";
+
+  const [displayedText, setDisplayedText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  useEffect(() => {
+    if (currentIndex < fullText.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      }, 25);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTyping(false);
+    }
+  }, [currentIndex, fullText]);
 
   const stats = useMemo(() => [
     { value: "10+", label: "Innovations" },
@@ -50,9 +66,17 @@ const Hero = () => {
             <span>Through Technology</span>
           </h1>
 
-          {/* Static text for faster load */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-up">
-            <span className="text-foreground font-semibold text-gradient-gold">HAPIDA SKY PRIVATE LIMITED</span> is a hub of innovation dedicated to transforming village life with groundbreaking technologies. From <span className="text-foreground font-semibold text-gradient-gold">Smart Bamboo Sticks</span> to the <span className="text-foreground font-semibold text-gradient-gold">World's Fastest EV Charger</span> — we dare to innovate.
+          {/* Subheading with typewriter effect */}
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed animate-fade-up min-h-[100px]">
+            {displayedText.split(/(HAPIDA SKY PRIVATE LIMITED|Smart Bamboo Sticks|World's Fastest EV Charger)/).map((part, index) => {
+              if (part === "HAPIDA SKY PRIVATE LIMITED" || part === "Smart Bamboo Sticks" || part === "World's Fastest EV Charger") {
+                return <span key={index} className="text-foreground font-semibold text-gradient-gold">{part}</span>;
+              }
+              return <span key={index}>{part}</span>;
+            })}
+            {isTyping && (
+              <span className="inline-block w-0.5 h-5 bg-amber-500 ml-1 animate-pulse" />
+            )}
           </p>
 
           {/* CTA Buttons */}
