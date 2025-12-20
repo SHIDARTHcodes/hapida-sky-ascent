@@ -17,7 +17,8 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
-    { name: "Products", href: "#products" },
+    { name: "Innovations", href: "#innovations" },
+    { name: "Testimonials", href: "#testimonials" },
     { name: "Contact", href: "#contact" },
   ];
 
@@ -56,8 +57,8 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="hero" size="sm">
-              Get Started
+            <Button variant="hero" size="sm" asChild>
+              <a href="#contact">Connect Now</a>
             </Button>
           </div>
 
@@ -84,8 +85,8 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <Button variant="hero" size="default" className="mt-2">
-                Get Started
+              <Button variant="hero" size="default" className="mt-2" asChild>
+                <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Connect Now</a>
               </Button>
             </div>
           </div>
