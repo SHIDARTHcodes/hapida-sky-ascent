@@ -1,5 +1,6 @@
 import { Instagram, Facebook, Twitter, Youtube, Mail, MapPin, Phone, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import hapidaLogo from "@/assets/hapida-logo.png";
 
 const Footer = () => {
   const socialLinks = [
@@ -46,16 +47,12 @@ const Footer = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             {/* Brand Column */}
             <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center font-serif text-2xl font-bold text-white shadow-lg shadow-amber-500/30">
-                  H
-                </div>
-                <div>
-                  <span className="text-xl font-serif font-bold">
-                    HAPIDA <span className="text-amber-400">SKY</span>
-                  </span>
-                  <p className="text-xs text-slate-400">Private Limited</p>
-                </div>
+              <div className="mb-6">
+                <img 
+                  src={hapidaLogo} 
+                  alt="HAPIDA SKY Private Limited" 
+                  className="h-16 w-auto object-contain"
+                />
               </div>
               <p className="text-slate-400 mb-8 leading-relaxed">
                 Empowering hilly areas and village life through science and technology. 
