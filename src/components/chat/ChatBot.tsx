@@ -90,25 +90,32 @@ const ChatBot = () => {
   return (
     <>
       {/* Chat Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 shadow-xl shadow-violet-500/50 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-fuchsia-500/60 group ${
+      <div
+        className={`fixed bottom-6 right-6 z-50 flex flex-col items-center gap-2 transition-all duration-300 ${
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
         }`}
-        aria-label="Open chat"
       >
-        {/* Animated rings */}
-        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 animate-ping opacity-30" />
-        <span className="absolute inset-1 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 animate-pulse opacity-50" />
-        
-        {/* Icon container */}
-        <span className="relative z-10 flex items-center justify-center">
-          <Sparkles className="w-7 h-7 text-white animate-pulse group-hover:animate-spin" />
+        <button
+          onClick={() => setIsOpen(true)}
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 shadow-xl shadow-violet-500/50 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-fuchsia-500/60 group relative"
+          aria-label="Open chat"
+        >
+          {/* Animated rings */}
+          <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 animate-ping opacity-30" />
+          <span className="absolute inset-1 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 animate-pulse opacity-50" />
+          
+          {/* Icon container */}
+          <span className="relative z-10 flex items-center justify-center">
+            <Sparkles className="w-7 h-7 text-white animate-pulse group-hover:animate-spin" />
+          </span>
+          
+          {/* Online indicator */}
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-lg shadow-green-400/50 animate-bounce" />
+        </button>
+        <span className="text-xs font-medium text-foreground bg-background/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-md border border-border whitespace-nowrap">
+          Chat with us
         </span>
-        
-        {/* Online indicator */}
-        <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-lg shadow-green-400/50 animate-bounce" />
-      </button>
+      </div>
 
       {/* Chat Window */}
       <div
