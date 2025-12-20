@@ -180,7 +180,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center gap-6">
               <a href="#" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Privacy Policy</a>
-              <a href="#" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Terms of Service</a>
+              <a href="#" className="text-sm text-slate-500 hover:text-amber-400 transition-colors">Terms and Condition</a>
               <button
                 onClick={scrollToTop}
                 className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white hover:bg-amber-600 hover:-translate-y-1 transition-all shadow-lg shadow-amber-500/30"
