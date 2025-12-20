@@ -75,11 +75,8 @@ const products: Product[] = [
 const ShopPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleBuyNow = (productName: string, price: number) => {
-    const message = encodeURIComponent(
-      `Hello! I want to purchase "${productName}" (₹${price.toLocaleString('en-IN')}). Please provide me with the order details.`
-    );
-    window.open(`https://wa.me/919410915009?text=${message}`, "_blank");
+  const handleBuyNow = () => {
+    window.open("https://web.whatsapp.com/send?phone=919410915009&text=hii", "_blank");
   };
 
   const filteredProducts = products.filter(product =>
@@ -183,7 +180,7 @@ const ShopPage = () => {
                   <Button
                     variant="hero"
                     className="gap-2 rounded-full px-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
-                    onClick={() => handleBuyNow(product.name, product.price)}
+                    onClick={() => handleBuyNow()}
                   >
                     <ShoppingCart className="w-5 h-5" />
                     Buy Now
@@ -241,7 +238,7 @@ const ShopPage = () => {
                     variant="hero"
                     size="icon"
                     className="rounded-full w-12 h-12"
-                    onClick={() => handleBuyNow(product.name, product.price)}
+                    onClick={() => handleBuyNow()}
                   >
                     <ShoppingCart className="w-5 h-5" />
                   </Button>
@@ -264,7 +261,7 @@ const ShopPage = () => {
             variant="hero"
             size="lg"
             className="rounded-full px-10"
-            onClick={() => window.open("https://wa.me/919410915009?text=Hello! I'm interested in a customized product. Please share the details.", "_blank")}
+            onClick={() => window.open("https://web.whatsapp.com/send?phone=919410915009&text=hii", "_blank")}
           >
             Request Custom Order
           </Button>
