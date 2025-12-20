@@ -100,7 +100,7 @@ const About = () => {
               
               {/* Floating achievement card */}
               <div className="absolute -right-4 md:-right-8 top-8 glass p-5 rounded-2xl shadow-elevated animate-float max-w-[200px]">
-                <Award className="w-6 h-6 text-amber-500 mb-2" />
+                <Award className="w-4 h-4 text-amber-500 mb-2" />
                 <p className="text-sm font-semibold text-foreground">Honored by Uttarakhand Government</p>
               </div>
 
@@ -120,7 +120,7 @@ const About = () => {
             </h3>
             <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
               <p>
-                A young entrepreneur based in <span className="text-foreground font-medium">Almora, Uttarakhand</span>, known for his research 
+                <span className="text-foreground font-medium">Ravi Tamta is the Founder and CEO of HAPIDA SKY PRIVATE LIMITED</span>, a young entrepreneur based in <span className="text-foreground font-medium">Almora, Uttarakhand</span>, known for his research 
                 work related to innovation in hilly areas and village life.
               </p>
               <p>
