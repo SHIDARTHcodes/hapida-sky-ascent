@@ -24,7 +24,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero"
+      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-hero pt-20"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 pattern-dots opacity-30" />
@@ -94,18 +94,18 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 md:gap-12 mt-20 pt-16 border-t border-amber-200/50 animate-fade-up delay-600">
+          {/* Stats - moved up */}
+          <div className="grid grid-cols-3 gap-6 md:gap-12 mt-10 pt-8 border-t border-amber-200/50 animate-fade-up delay-500">
             {[
               { value: "10+", label: "Innovations" },
               { value: "5+", label: "Years Research" },
               { value: "100%", label: "Made in India" },
-            ].map((stat, index) => (
+            ].map((stat) => (
               <div key={stat.label} className="text-center group">
-                <div className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">
                   {stat.value}
                 </div>
-                <div className="text-sm md:text-base text-muted-foreground mt-2">{stat.label}</div>
+                <div className="text-xs md:text-sm text-muted-foreground mt-1">{stat.label}</div>
               </div>
             ))}
           </div>
