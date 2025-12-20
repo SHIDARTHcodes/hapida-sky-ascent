@@ -1,6 +1,12 @@
 import { ShoppingCart, Star, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import smartStickBss1 from "@/assets/products/smart-stick-bss1.png";
+import smartStickBss2 from "@/assets/products/smart-stick-bss2.jpg";
+import smartStickBss3 from "@/assets/products/smart-stick-bss3.png";
+import bambooStickBs1 from "@/assets/products/bamboo-stick-bs1.png";
+import bambooStickBs2 from "@/assets/products/bamboo-stick-bs2.png";
+
 interface Product {
   id: number;
   name: string;
@@ -18,7 +24,7 @@ const products: Product[] = [
     name: "Smart Stick BSS1",
     category: "Bamboo Smart Stick",
     price: 1540,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop",
+    image: smartStickBss1,
     rating: 4.8,
   },
   {
@@ -26,7 +32,7 @@ const products: Product[] = [
     name: "Bamboo Stick BS2",
     category: "Bamboo Smart Stick",
     price: 860,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop",
+    image: bambooStickBs2,
     rating: 4.6,
   },
   {
@@ -34,7 +40,7 @@ const products: Product[] = [
     name: "Bamboo Stick BS1",
     category: "Bamboo Smart Stick",
     price: 340,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop",
+    image: bambooStickBs1,
     rating: 4.5,
   },
   {
@@ -43,7 +49,7 @@ const products: Product[] = [
     category: "Bamboo Smart Stick",
     price: 3400,
     originalPrice: 3500,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop",
+    image: smartStickBss2,
     rating: 4.9,
     badge: "3% OFF",
   },
@@ -52,7 +58,7 @@ const products: Product[] = [
     name: "Bamboo Smart Stick BSS3",
     category: "Bamboo Smart Stick",
     price: 5300,
-    image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop",
+    image: smartStickBss3,
     rating: 5.0,
     badge: "Premium",
   },
@@ -92,11 +98,11 @@ const Shop = () => {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {/* Image Container */}
-              <div className="relative aspect-square overflow-hidden bg-slate-100">
+              <div className="relative aspect-square overflow-hidden bg-slate-50">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-700"
                 />
                 {product.badge && (
                   <span className="absolute top-4 right-4 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
@@ -104,7 +110,7 @@ const Shop = () => {
                   </span>
                 )}
                 {/* Overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
 
               {/* Content */}
