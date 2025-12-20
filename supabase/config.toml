@@ -1,1 +1,4 @@
 project_id = "gekrmpfudqijpvuxujay"
+
+[functions.hapida-chat]
+verify_jwt = false

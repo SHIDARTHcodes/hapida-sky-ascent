@@ -1,6 +1,8 @@
 import { useState, useCallback, memo } from "react";
 import { X, Send, Bot, User, Sparkles, Globe, Facebook, Instagram, Twitter, Youtube, ShoppingBag, Phone, ZoomIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 // Import product images
 import bambooStickBS1 from "@/assets/products/bamboo-stick-bs1.png";
@@ -106,6 +108,41 @@ const ChatMessage = memo(({ message, onImageClick }: { message: Message; onImage
 
 ChatMessage.displayName = "ChatMessage";
 
+// Helper function to detect product-related keywords and attach images
+const getImagesForResponse = (userMessage: string, aiResponse: string): string[] => {
+  const lowerMessage = userMessage.toLowerCase();
+  const lowerResponse = aiResponse.toLowerCase();
+  
+  // Check for founder-related content
+  if (lowerMessage.includes("founder") || lowerMessage.includes("ravi") || lowerMessage.includes("ceo") || 
+      lowerResponse.includes("ravi tamta") || lowerResponse.includes("founder")) {
+    return [founderImage];
+  }
+  
+  // Check for EV charger content
+  if (lowerMessage.includes("ev charger") || lowerMessage.includes("electrolyte") || 
+      lowerMessage.includes("electric vehicle") || lowerResponse.includes("electrolyte pump") ||
+      lowerResponse.includes("ev charger")) {
+    return [evChargerImage];
+  }
+  
+  // Check for smart stick/bamboo stick content
+  if (lowerMessage.includes("smart stick") || lowerMessage.includes("bamboo") || 
+      lowerMessage.includes("bss") || lowerMessage.includes("bs1") || lowerMessage.includes("bs2") ||
+      lowerResponse.includes("smart stick") || lowerResponse.includes("bamboo stick")) {
+    return [bambooStickBS1, bambooStickBS2, smartStickBSS1, smartStickBSS3];
+  }
+  
+  // Check for products/all products
+  if (lowerMessage.includes("product") || lowerMessage.includes("innovation") || 
+      lowerMessage.includes("price") || lowerMessage.includes("all") ||
+      lowerResponse.includes("products") || lowerResponse.includes("₹340") || lowerResponse.includes("₹860")) {
+    return [bambooStickBS1, smartStickBSS1, smartStickBSS2, smartStickBSS3];
+  }
+  
+  return [];
+};
+
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [language, setLanguage] = useState<Language>("english");
@@ -119,6 +156,7 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleImageClick = useCallback((src: string) => {
     setLightboxImage(src);
@@ -128,418 +166,7 @@ const ChatBot = () => {
     setLightboxImage(null);
   }, []);
 
-  const getAIResponse = useCallback((userMessage: string): { content: string; images?: string[] } => {
-    const lowerMessage = userMessage.toLowerCase();
-    const isHinglish = language === "hinglish";
-    
-    // Founder response with image
-    if (lowerMessage.includes("founder") || lowerMessage.includes("ravi") || lowerMessage.includes("who started") || lowerMessage.includes("ceo") || lowerMessage.includes("owner")) {
-      return {
-        content: isHinglish
-          ? `**Ravi Tamta HAPIDA SKY PRIVATE LIMITED ke Founder aur CEO hain.**
-
-📍 Location: Almora, Uttarakhand
-🎯 Focus: Hilly areas aur village life mein innovation
-
-**Unke innovations:**
-• 👟 Mobile Chargeable Shoes
-• 🎋 Smart Bamboo Stick
-• ⚡ World's Fastest EV Charger
-
-**Achievements:**
-✅ Honorable CM Mr. Trivendra Singh Rawat dwara sammanit
-✅ Uttarakhand Forest Department dwara honored
-✅ National Innovation Foundation participant
-
-**Kyun follow karein?**
-Ravi Tamta ek visionary entrepreneur hain jo technology se villages ko empower kar rahe hain!`
-          : `**Ravi Tamta is the Founder and CEO of HAPIDA SKY PRIVATE LIMITED.**
-
-📍 Location: Almora, Uttarakhand
-🎯 Focus: Innovation in hilly areas and village life
-
-**His Innovations:**
-• 👟 Mobile Chargeable Shoes
-• 🎋 Smart Bamboo Stick
-• ⚡ World's Fastest EV Charger
-
-**Achievements:**
-✅ Felicitated by Honorable CM Mr. Trivendra Singh Rawat
-✅ Honored by Uttarakhand Forest Department
-✅ National Innovation Foundation participant
-
-**Why follow him?**
-A visionary entrepreneur empowering villages through technology!`,
-        images: [founderImage],
-      };
-    }
-    
-    // Smart Stick with product images
-    if (lowerMessage.includes("smart stick") || lowerMessage.includes("bamboo stick") || lowerMessage.includes("walking stick") || lowerMessage.includes("bss") || lowerMessage.includes("bs1") || lowerMessage.includes("bs2")) {
-      return {
-        content: isHinglish
-          ? `🎋 **Smart Bamboo Stick** - Humara Flagship Product!
-
-**Features:**
-📱 Mobile charging - Chalte hue phone charge karo
-🔦 Built-in torch - Raat mein raasta dekho
-📞 Bluetooth calling - Hands-free calls
-🥾 Lightweight bamboo - Easy to carry
-
-**Product Range & Prices:**
-• Bamboo Stick BS1 - ₹340 (Basic model)
-• Bamboo Stick BS2 - ₹860 (Better grip)
-• Smart Stick BSS1 - ₹1,540 (with charging)
-• Smart Stick BSS2 - ₹3,400 (Premium features)
-• Smart Stick BSS3 - ₹5,300 (Full loaded!)
-
-**Kyun khareedein?**
-✅ Trekking ke liye perfect
-✅ Elderly ke liye ideal
-✅ Made in India, eco-friendly bamboo
-✅ 100% quality guaranteed
-
-📞 Order karne ke liye WhatsApp karein!`
-          : `🎋 **Smart Bamboo Stick** - Our Flagship Innovation!
-
-**Advanced Features:**
-📱 Mobile charging - Charge your phone while walking
-🔦 Built-in torch - Navigate safely at night
-📞 Bluetooth calling - Hands-free communication
-🥾 Lightweight bamboo - Easy to carry anywhere
-
-**Product Range & Prices:**
-• Bamboo Stick BS1 - ₹340 (Basic model)
-• Bamboo Stick BS2 - ₹860 (Enhanced grip)
-• Smart Stick BSS1 - ₹1,540 (with charging)
-• Smart Stick BSS2 - ₹3,400 (Premium features)
-• Smart Stick BSS3 - ₹5,300 (Fully loaded!)
-
-**Why Buy?**
-✅ Perfect for trekking in Himalayas
-✅ Ideal for elderly daily walks
-✅ Made in India with eco-friendly bamboo
-✅ 100% quality guaranteed
-
-📞 Click WhatsApp button to order now!`,
-        images: [bambooStickBS1, bambooStickBS2, smartStickBSS1, smartStickBSS3],
-      };
-    }
-    
-    // EV Charger with image
-    if (lowerMessage.includes("ev charger") || lowerMessage.includes("electrolyte") || lowerMessage.includes("electric vehicle") || lowerMessage.includes("charger") || lowerMessage.includes("fastest")) {
-      return {
-        content: isHinglish
-          ? `⚡ **Electrolyte Pump - Duniya ka Sabse Fast EV Charger!**
-
-**Inauguration:**
-🎀 Honorable CM Shri. Trivendra Singh Rawat
-🎀 Honorable Minister Shri. Ajay Tamta
-📍 Location: Haldwani, Uttarakhand
-
-**Ye special kyun hai?**
-• ⚡ Revolutionary charging technology
-• 🚗 EV charging time mein dramatic reduction
-• 🇮🇳 Made in India innovation
-• 🌍 Global impact potential
-
-**Benefits:**
-✅ Time bachao - faster charging
-✅ Environment friendly
-✅ India ki EV revolution mein contribution
-
-Is technology ne poore desh ka dhyan khicha hai!`
-          : `⚡ **Electrolyte Pump - World's Fastest Electric Vehicle Charger!**
-
-**Grand Inauguration:**
-🎀 Honorable CM Shri. Trivendra Singh Rawat
-🎀 Honorable Minister Shri. Ajay Tamta
-📍 Location: Haldwani, Uttarakhand
-
-**What Makes It Special?**
-• ⚡ Revolutionary charging technology
-• 🚗 Dramatically reduces EV charging time
-• 🇮🇳 Made in India innovation
-• 🌍 Global impact potential
-
-**Benefits:**
-✅ Save time with faster charging
-✅ Environmentally friendly solution
-✅ Contributing to India's EV revolution
-
-This technology has caught national attention!`,
-        images: [evChargerImage],
-      };
-    }
-    
-    // Products list with images
-    if (lowerMessage.includes("product") || lowerMessage.includes("innovation") || lowerMessage.includes("what do you make") || lowerMessage.includes("all") || lowerMessage.includes("list") || lowerMessage.includes("shop")) {
-      return {
-        content: isHinglish
-          ? `🌟 **HAPIDA Products & Innovations:**
-
-**🎋 Smart Bamboo Sticks:**
-• BS1: ₹340 - Basic model
-• BS2: ₹860 - Better grip
-• BSS1: ₹1,540 - Mobile charging
-• BSS2: ₹3,400 - Premium (3% OFF!)
-• BSS3: ₹5,300 - Fully loaded
-
-**⚡ Electrolyte Pump:**
-Duniya ka fastest EV charger!
-
-**👟 Mobile Chargeable Shoes:**
-Chalte hue phone charge karo!
-
-**🌲 Pinepeat Machine:**
-Agricultural innovation
-
-**Hum specialize karte hain:**
-🏔️ Trekking equipment
-🎯 Adventure products
-✅ Safety certified
-🛠️ Custom products available
-
-Kaunsa product pasand aaya?`
-          : `🌟 **HAPIDA Products & Innovations:**
-
-**🎋 Smart Bamboo Sticks:**
-• BS1: ₹340 - Basic model
-• BS2: ₹860 - Enhanced grip
-• BSS1: ₹1,540 - Mobile charging
-• BSS2: ₹3,400 - Premium (3% OFF!)
-• BSS3: ₹5,300 - Fully loaded
-
-**⚡ Electrolyte Pump:**
-World's fastest EV charger!
-
-**👟 Mobile Chargeable Shoes:**
-Generate power while walking!
-
-**🌲 Pinepeat Machine:**
-Agricultural innovation
-
-**We Specialize In:**
-🏔️ Trekking equipment
-🎯 Adventure products
-✅ Safety certified
-🛠️ Custom products available
-
-Which product interests you?`,
-        images: [bambooStickBS1, smartStickBSS1, smartStickBSS2, smartStickBSS3],
-      };
-    }
-    
-    // Price response
-    if (lowerMessage.includes("price") || lowerMessage.includes("cost") || lowerMessage.includes("how much") || lowerMessage.includes("kitna") || lowerMessage.includes("rate")) {
-      return {
-        content: isHinglish
-          ? `💰 **Product Prices:**
-
-**Bamboo Sticks:**
-• BS1 - ₹340 (Basic)
-• BS2 - ₹860 (Better grip)
-
-**Smart Sticks:**
-• BSS1 - ₹1,540 (Mobile charging)
-• BSS2 - ₹3,400 (3% OFF!)
-• BSS3 - ₹5,300 (Premium)
-
-**Contact:**
-📞 Phone: +91-9410915009
-📧 Email: info@hapida.in
-📍 Kaflikhan, Almora, Uttarakhand
-
-✨ Customization bhi available hai!`
-          : `💰 **Product Pricing:**
-
-**Bamboo Sticks:**
-• BS1 - ₹340 (Basic)
-• BS2 - ₹860 (Enhanced grip)
-
-**Smart Sticks:**
-• BSS1 - ₹1,540 (Mobile charging)
-• BSS2 - ₹3,400 (3% OFF!)
-• BSS3 - ₹5,300 (Premium)
-
-**Contact:**
-📞 Phone: +91-9410915009
-📧 Email: info@hapida.in
-📍 Kaflikhan, Almora, Uttarakhand
-
-✨ Customization also available!`,
-        images: [smartStickBSS1, smartStickBSS3],
-      };
-    }
-    
-    // Location/Contact
-    if (lowerMessage.includes("location") || lowerMessage.includes("where") || lowerMessage.includes("address") || lowerMessage.includes("contact") || lowerMessage.includes("phone") || lowerMessage.includes("email") || lowerMessage.includes("kahan")) {
-      return {
-        content: isHinglish
-          ? `📍 **HAPIDA SKY PRIVATE LIMITED**
-
-**Address:**
-Kaflikhan, Almora, Uttarakhand
-India - 263623
-
-**Contact:**
-📞 Phone: +91-9410915009
-📧 Email: info@hapida.in
-
-**Social Media:**
-🔵 Facebook | 📸 Instagram | 🐦 Twitter | 🎥 YouTube
-
-Hum hilly areas aur village life ko technology se empower karte hain!`
-          : `📍 **HAPIDA SKY PRIVATE LIMITED**
-
-**Address:**
-Kaflikhan, Almora, Uttarakhand
-India - 263623
-
-**Contact:**
-📞 Phone: +91-9410915009
-📧 Email: info@hapida.in
-
-**Social Media:**
-🔵 Facebook | 📸 Instagram | 🐦 Twitter | 🎥 YouTube
-
-Dedicated to empowering hilly areas through technology!`,
-      };
-    }
-    
-    // Order/Buy
-    if (lowerMessage.includes("order") || lowerMessage.includes("buy") || lowerMessage.includes("purchase") || lowerMessage.includes("whatsapp") || lowerMessage.includes("kharidna")) {
-      return {
-        content: isHinglish
-          ? `🛒 **Order Kaise Karein?**
-
-📱 **WhatsApp Order:**
-Neeche green WhatsApp button press karein!
-
-**Contact:**
-📞 Phone: +91-9410915009
-📧 Email: info@hapida.in
-
-**Delivery:**
-✅ All India shipping available
-✅ Safe packaging
-✅ Quality guaranteed
-
-Abhi order karein!`
-          : `🛒 **How to Order?**
-
-📱 **WhatsApp Order:**
-Click the green WhatsApp button below!
-
-**Contact:**
-📞 Phone: +91-9410915009
-📧 Email: info@hapida.in
-
-**Delivery:**
-✅ All India shipping available
-✅ Safe packaging
-✅ Quality guaranteed
-
-Order now!`,
-        images: [smartStickBSS1, smartStickBSS3],
-      };
-    }
-    
-    // Reviews/Testimonials
-    if (lowerMessage.includes("review") || lowerMessage.includes("testimonial") || lowerMessage.includes("feedback") || lowerMessage.includes("customer")) {
-      return {
-        content: isHinglish
-          ? `⭐ **Customer Reviews:**
-
-**Neha** - Manager, Barclays:
-"Smart stick se bahut satisfied hoon. Trekking ke liye perfect!"
-
-**Abhay** - Doctor:
-"Grandfather ko gift diya, woh bahut khush hain morning walks ke liye."
-
-**Priya** - GM, Hotel Lily:
-"Daily use karti hoon, mobile charging feature amazing hai!"
-
-**Raghav** - Executive, TCS:
-"Bamboo smart stick great hai torch aur bluetooth features ke saath."
-
-⭐⭐⭐⭐⭐ 100+ Happy Customers!`
-          : `⭐ **Customer Reviews:**
-
-**Neha** - Manager, Barclays:
-"Very satisfied with smart stick. Perfect for trekking!"
-
-**Abhay** - Doctor:
-"Gifted to my grandfather, he loves it for morning walks."
-
-**Priya** - GM, Hotel Lily:
-"Using it daily, mobile charging feature is amazing!"
-
-**Raghav** - Executive, TCS:
-"Bamboo smart stick is great with torch and bluetooth features."
-
-⭐⭐⭐⭐⭐ 100+ Happy Customers!`,
-      };
-    }
-    
-    // Greeting
-    if (lowerMessage.includes("hello") || lowerMessage.includes("hi") || lowerMessage.includes("hey") || lowerMessage.includes("namaste") || lowerMessage.includes("hii")) {
-      return {
-        content: isHinglish
-          ? `Namaste! 🙏 HAPIDA SKY mein aapka swagat hai!
-
-Main help kar sakta/sakti hoon:
-• 🎋 Smart Bamboo Stick details
-• ⚡ EV Charger ke baare mein
-• 👤 Founder Ravi Tamta
-• 💰 Product prices
-• 📍 Contact info
-• 📱 Social media links
-
-Kya jaanna chahte ho?`
-          : `Namaste! 🙏 Welcome to HAPIDA SKY!
-
-I can help you with:
-• 🎋 Smart Bamboo Stick details
-• ⚡ EV Charger information
-• 👤 Founder Ravi Tamta
-• 💰 Product prices
-• 📍 Contact info
-• 📱 Social media links
-
-What would you like to know?`,
-      };
-    }
-    
-    // Default
-    return {
-      content: isHinglish
-        ? `HAPIDA mein interest ke liye dhanyavaad! 🙏
-
-Main aapki help kar sakta/sakti hoon:
-• 🎋 Smart Bamboo Stick
-• ⚡ Electrolyte Pump (EV Charger)
-• 👟 Mobile Chargeable Shoes
-• 👤 Founder Ravi Tamta
-• 💰 Prices aur ordering
-• 📍 Contact details
-
-Kya jaanna chahte ho?`
-        : `Thank you for your interest in HAPIDA! 🙏
-
-I can help you with:
-• 🎋 Smart Bamboo Stick
-• ⚡ Electrolyte Pump (EV Charger)
-• 👟 Mobile Chargeable Shoes
-• 👤 Founder Ravi Tamta
-• 💰 Prices and ordering
-• 📍 Contact details
-
-What would you like to know?`,
-    };
-  }, [language]);
-
-  const handleSend = useCallback(() => {
+  const handleSend = useCallback(async () => {
     if (!input.trim() || isLoading) return;
 
     const userMessage: Message = {
@@ -553,18 +180,51 @@ What would you like to know?`,
     setInput("");
     setIsLoading(true);
 
-    setTimeout(() => {
-      const response = getAIResponse(currentInput);
+    try {
+      const { data, error } = await supabase.functions.invoke('hapida-chat', {
+        body: { message: currentInput, language },
+      });
+
+      if (error) {
+        console.error("Edge function error:", error);
+        throw new Error(error.message);
+      }
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      const aiResponse = data.response;
+      const images = getImagesForResponse(currentInput, aiResponse);
+      
       const assistantMessage: Message = {
         id: messages.length + 2,
         role: "assistant",
-        content: response.content,
-        images: response.images,
+        content: aiResponse,
+        images: images.length > 0 ? images : undefined,
       };
       setMessages((prev) => [...prev, assistantMessage]);
+    } catch (error) {
+      console.error("Chat error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to get response. Please try again.",
+        variant: "destructive",
+      });
+      
+      // Fallback response
+      const fallbackMessage: Message = {
+        id: messages.length + 2,
+        role: "assistant",
+        content: language === "hinglish" 
+          ? "Maaf kijiye, abhi response nahi mil paya. Kripya dobara try karein ya WhatsApp pe contact karein: +91-9410915009"
+          : "Sorry, I couldn't process your request right now. Please try again or contact us on WhatsApp: +91-9410915009",
+      };
+      setMessages((prev) => [...prev, fallbackMessage]);
+    } finally {
       setIsLoading(false);
-    }, 500);
-  }, [input, isLoading, messages.length, getAIResponse]);
+    }
+  }, [input, isLoading, messages.length, language, toast]);
 
   const handleLanguageChange = useCallback(() => {
     const newLang = language === "english" ? "hinglish" : "english";
@@ -623,7 +283,7 @@ What would you like to know?`,
             </div>
             <div>
               <h3 className="font-serif font-bold text-white text-base">HAPIDA Assistant</h3>
-              <p className="text-xs text-white/80">Ask about our innovations</p>
+              <p className="text-xs text-white/80">Powered by AI</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
