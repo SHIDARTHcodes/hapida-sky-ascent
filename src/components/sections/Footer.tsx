@@ -63,17 +63,28 @@ const Footer = () => {
               </p>
               
               {/* Social Links */}
-              <div className="flex gap-3">
-                {socialLinks.map((social) => (
+              <div className="flex gap-4">
+                {socialLinks.map((social, index) => (
                   <a
                     key={social.name}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-11 h-11 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white ${social.color} transition-all duration-300 hover:scale-110`}
+                    className={`group relative w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-slate-300 ${social.color} transition-all duration-500 hover:scale-125 hover:rotate-6 hover:shadow-xl`}
+                    style={{
+                      animation: `float ${2 + index * 0.3}s ease-in-out infinite`,
+                      animationDelay: `${index * 0.2}s`
+                    }}
                     aria-label={social.name}
                   >
-                    <social.icon className="w-5 h-5" />
+                    {/* Glow effect */}
+                    <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-300 blur-md ${social.color.replace('hover:', '')}`} />
+                    
+                    {/* Icon with pulse */}
+                    <social.icon className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:scale-110" />
+                    
+                    {/* Floating particles */}
+                    <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-amber-400 opacity-0 group-hover:opacity-100 animate-ping" />
                   </a>
                 ))}
               </div>
