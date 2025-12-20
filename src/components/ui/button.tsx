@@ -5,36 +5,38 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-semibold transition-all duration-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl",
+          "bg-primary text-primary-foreground hover:bg-amber-600 shadow-lg hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
           "border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-soft",
         ghost: 
           "text-foreground hover:bg-muted hover:text-foreground",
         link: 
           "text-primary underline-offset-4 hover:underline",
         hero:
-          "bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-900 font-semibold shadow-lg hover:shadow-xl hover:shadow-amber-500/30 hover:scale-105 active:scale-100",
+          "bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-white font-bold shadow-lg shadow-amber-500/30 hover:shadow-xl hover:shadow-amber-500/40 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-100",
         "hero-outline":
-          "border-2 border-amber-500/50 text-foreground bg-transparent hover:border-amber-500 hover:bg-amber-500/10 backdrop-blur-sm",
+          "border-2 border-amber-500/60 text-foreground bg-white/50 backdrop-blur-sm hover:border-amber-500 hover:bg-amber-50 hover:shadow-lg hover:-translate-y-0.5",
+        "hero-dark":
+          "bg-surface-dark text-white font-bold shadow-lg hover:shadow-xl hover:bg-slate-800 hover:-translate-y-0.5",
         glass:
-          "bg-slate-800/60 backdrop-blur-xl border border-slate-700/50 text-foreground hover:bg-slate-700 hover:border-amber-500/30",
+          "bg-white/70 backdrop-blur-xl border border-border/50 text-foreground hover:bg-white shadow-soft hover:shadow-lg",
         glow:
-          "bg-primary text-primary-foreground animate-pulse shadow-lg shadow-amber-500/30",
+          "bg-primary text-primary-foreground animate-pulse-glow hover:bg-amber-600",
       },
       size: {
         default: "h-11 px-6 py-2",
-        sm: "h-9 rounded-md px-4 text-xs",
-        lg: "h-12 rounded-lg px-8 text-base",
-        xl: "h-14 rounded-xl px-10 text-lg",
+        sm: "h-9 rounded-lg px-4 text-xs",
+        lg: "h-12 rounded-xl px-8 text-base",
+        xl: "h-14 rounded-2xl px-10 text-lg",
         icon: "h-10 w-10",
       },
     },

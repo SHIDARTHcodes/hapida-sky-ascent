@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageCircle, X, Send, Bot, User } from "lucide-react";
+import { MessageCircle, X, Send, Bot, User, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Message {
@@ -76,7 +76,6 @@ const ChatBot = () => {
     setInput("");
     setIsLoading(true);
 
-    // Simulate AI response with knowledge base
     setTimeout(() => {
       const assistantMessage: Message = {
         id: messages.length + 2,
@@ -93,69 +92,71 @@ const ChatBot = () => {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-gold-light via-primary to-gold-dark shadow-lg hover:shadow-xl hover:shadow-primary/30 flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 shadow-xl shadow-amber-500/40 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-2xl hover:shadow-amber-500/50 ${
           isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
         }`}
         aria-label="Open chat"
       >
-        <MessageCircle className="w-6 h-6 text-primary-foreground" />
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background animate-pulse" />
+        <MessageCircle className="w-7 h-7 text-white" />
+        <span className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-3 border-white animate-pulse flex items-center justify-center">
+          <Sparkles className="w-3 h-3 text-white" />
+        </span>
       </button>
 
       {/* Chat Window */}
       <div
-        className={`fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[560px] max-h-[calc(100vh-6rem)] rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 w-[400px] max-w-[calc(100vw-3rem)] h-[600px] max-h-[calc(100vh-6rem)] rounded-3xl overflow-hidden shadow-2xl transition-all duration-400 border border-border ${
           isOpen
             ? "scale-100 opacity-100 translate-y-0"
             : "scale-95 opacity-0 translate-y-4 pointer-events-none"
         }`}
       >
         {/* Header */}
-        <div className="bg-gradient-to-r from-gold-dark via-primary to-gold-light p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-primary-foreground" />
+        <div className="bg-gradient-to-r from-amber-500 via-amber-500 to-amber-600 p-5 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur">
+              <Bot className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h3 className="font-serif font-semibold text-primary-foreground">HAPIDA Assistant</h3>
-              <p className="text-xs text-primary-foreground/80">Ask about our innovations</p>
+              <h3 className="font-serif font-bold text-white text-lg">HAPIDA Assistant</h3>
+              <p className="text-sm text-white/80">Ask about our innovations</p>
             </div>
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="w-8 h-8 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary-foreground/30 transition-colors"
+            className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
           >
-            <X className="w-4 h-4 text-primary-foreground" />
+            <X className="w-5 h-5 text-white" />
           </button>
         </div>
 
         {/* Messages */}
-        <div className="flex-1 h-[calc(100%-140px)] overflow-y-auto p-4 space-y-4 bg-surface">
+        <div className="flex-1 h-[calc(100%-160px)] overflow-y-auto p-5 space-y-4 bg-white">
           {messages.map((message) => (
             <div
               key={message.id}
               className={`flex gap-3 ${
                 message.role === "user" ? "flex-row-reverse" : ""
-              }`}
+              } animate-fade-up`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
                   message.role === "user"
-                    ? "bg-primary/20"
-                    : "bg-gradient-to-br from-gold-light to-primary"
+                    ? "bg-amber-100"
+                    : "bg-gradient-to-br from-amber-400 to-amber-600 shadow-lg shadow-amber-500/30"
                 }`}
               >
                 {message.role === "user" ? (
-                  <User className="w-4 h-4 text-primary" />
+                  <User className="w-5 h-5 text-amber-600" />
                 ) : (
-                  <Bot className="w-4 h-4 text-primary-foreground" />
+                  <Bot className="w-5 h-5 text-white" />
                 )}
               </div>
               <div
-                className={`max-w-[75%] p-3 rounded-2xl text-sm whitespace-pre-line ${
+                className={`max-w-[75%] p-4 rounded-2xl text-sm whitespace-pre-line leading-relaxed ${
                   message.role === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-sm"
-                    : "bg-surface-elevated text-foreground rounded-bl-sm border border-border/50"
+                    ? "bg-gradient-to-br from-amber-500 to-amber-600 text-white rounded-br-md shadow-lg shadow-amber-500/20"
+                    : "bg-slate-50 text-foreground rounded-bl-md border border-border"
                 }`}
               >
                 {message.content}
@@ -163,15 +164,15 @@ const ChatBot = () => {
             </div>
           ))}
           {isLoading && (
-            <div className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold-light to-primary flex items-center justify-center flex-shrink-0">
-                <Bot className="w-4 h-4 text-primary-foreground" />
+            <div className="flex gap-3 animate-fade-up">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-amber-500/30">
+                <Bot className="w-5 h-5 text-white" />
               </div>
-              <div className="bg-surface-elevated text-foreground rounded-2xl rounded-bl-sm border border-border/50 p-3">
-                <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                  <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                  <span className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+              <div className="bg-slate-50 text-foreground rounded-2xl rounded-bl-md border border-border p-4">
+                <div className="flex gap-1.5">
+                  <span className="w-2.5 h-2.5 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-2.5 h-2.5 bg-amber-500 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="w-2.5 h-2.5 bg-amber-600 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                 </div>
               </div>
             </div>
@@ -179,24 +180,24 @@ const ChatBot = () => {
         </div>
 
         {/* Input */}
-        <div className="p-4 bg-surface border-t border-border/50">
-          <div className="flex gap-2">
+        <div className="p-4 bg-white border-t border-border">
+          <div className="flex gap-3">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSend()}
               placeholder="Ask about our innovations..."
-              className="flex-1 bg-surface-elevated border border-border/50 rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
+              className="flex-1 bg-slate-50 border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all"
             />
             <Button
               variant="hero"
               size="icon"
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
-              className="rounded-xl"
+              className="rounded-xl w-12 h-12"
             >
-              <Send className="w-4 h-4" />
+              <Send className="w-5 h-5" />
             </Button>
           </div>
         </div>
