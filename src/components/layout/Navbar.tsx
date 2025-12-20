@@ -26,19 +26,20 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "glass py-3"
-          : "bg-transparent py-5"
+          ? "glass py-3 shadow-soft"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-light via-primary to-gold-dark flex items-center justify-center font-serif text-xl font-bold text-primary-foreground group-hover:scale-110 transition-transform duration-300">
+            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center font-serif text-xl font-bold text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 group-hover:shadow-xl transition-all duration-300">
               H
             </div>
-            <span className="text-xl font-serif font-semibold text-foreground hidden sm:block">
-              HAPIDA <span className="text-gradient-gold">SKY</span>
+            <span className="text-xl font-serif font-bold hidden sm:block">
+              <span className="text-foreground">HAPIDA</span>{" "}
+              <span className="text-gradient-gold">SKY</span>
             </span>
           </a>
 
@@ -64,7 +65,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground hover:bg-muted rounded-lg transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -74,13 +75,14 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-up">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
+            <div className="flex flex-col gap-2 bg-white rounded-2xl p-4 shadow-elevated">
+              {navLinks.map((link, index) => (
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 py-2"
+                  className="text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300 py-3 px-4 rounded-xl"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {link.name}
                 </a>

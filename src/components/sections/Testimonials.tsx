@@ -66,57 +66,67 @@ const Testimonials = () => {
     },
   ];
 
+  const stats = [
+    { value: "5+", label: "Years Experience" },
+    { value: "100+", label: "Satisfied Customers" },
+    { value: "10+", label: "Innovations" },
+    { value: "5★", label: "Average Rating" },
+  ];
+
   return (
     <section
       id="testimonials"
       ref={sectionRef}
-      className="py-24 md:py-32 bg-gradient-surface relative overflow-hidden"
+      className="py-24 md:py-32 bg-white relative overflow-hidden"
     >
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl" />
+      {/* Background decorations */}
+      <div className="absolute inset-0 pattern-grid opacity-50" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial opacity-40" />
 
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         {/* Section Header */}
-        <div className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <span className="text-sm font-medium text-primary uppercase tracking-wider">
+        <div className={`text-center max-w-3xl mx-auto mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <span className="inline-block text-sm font-bold text-amber-600 uppercase tracking-widest mb-4 px-4 py-2 bg-amber-50 rounded-full">
             Testimonials
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold mt-4 mb-6">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mt-4 mb-6">
             Client <span className="text-gradient-gold">Reviews</span>
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
             Hear what our satisfied customers have to say about HAPIDA innovations.
           </p>
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className={`group p-6 md:p-8 rounded-2xl glass hover:glass-gold transition-all duration-500 ${
+              className={`group p-8 md:p-10 rounded-3xl bg-white border border-border hover:border-amber-200 shadow-soft hover:shadow-elevated transition-all duration-500 hover-lift relative overflow-hidden ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${200 + index * 100}ms` }}
             >
-              {/* Quote Icon */}
-              <Quote className="w-10 h-10 text-primary/30 mb-4" />
+              {/* Quote decoration */}
+              <div className="absolute top-6 right-6 w-16 h-16 rounded-full bg-gradient-to-br from-amber-100 to-amber-50 flex items-center justify-center opacity-50 group-hover:opacity-100 transition-opacity">
+                <Quote className="w-8 h-8 text-amber-400" />
+              </div>
               
-              {/* Content */}
-              <p className="text-foreground text-lg mb-6 leading-relaxed">
-                "{testimonial.content}"
-              </p>
-
               {/* Rating */}
               <div className="flex gap-1 mb-6">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                  <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
                 ))}
               </div>
 
+              {/* Content */}
+              <p className="text-foreground text-lg md:text-xl leading-relaxed mb-8 font-medium">
+                "{testimonial.content}"
+              </p>
+
               {/* Author */}
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-primary/30">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-3 border-amber-200 shadow-lg">
                   <img
                     src={testimonial.image}
                     alt={testimonial.name}
@@ -124,8 +134,8 @@ const Testimonials = () => {
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <h4 className="font-bold text-lg text-foreground">{testimonial.name}</h4>
+                  <p className="text-amber-600 font-medium">{testimonial.role}</p>
                 </div>
               </div>
             </div>
@@ -133,23 +143,16 @@ const Testimonials = () => {
         </div>
 
         {/* Stats Row */}
-        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-16 border-t border-border/30 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-serif font-bold text-gradient-gold">5+</div>
-            <div className="text-sm text-muted-foreground mt-1">Years Experience</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-serif font-bold text-gradient-gold">100+</div>
-            <div className="text-sm text-muted-foreground mt-1">Satisfied Customers</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-serif font-bold text-gradient-gold">10+</div>
-            <div className="text-sm text-muted-foreground mt-1">Innovations</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-serif font-bold text-gradient-gold">5★</div>
-            <div className="text-sm text-muted-foreground mt-1">Average Rating</div>
-          </div>
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mt-20 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          {stats.map((stat, index) => (
+            <div 
+              key={stat.label}
+              className="text-center p-8 rounded-3xl bg-gradient-to-br from-amber-50 to-white border border-amber-100 hover-lift"
+            >
+              <div className="text-4xl md:text-5xl font-serif font-bold text-gradient-gold">{stat.value}</div>
+              <div className="text-sm md:text-base text-muted-foreground mt-2 font-medium">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
