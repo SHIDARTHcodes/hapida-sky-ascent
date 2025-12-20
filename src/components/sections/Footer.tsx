@@ -6,22 +6,22 @@ const Footer = () => {
   const socialLinks = [{
     name: "YouTube",
     icon: Youtube,
-    href: "https://www.youtube.com/channel/UCQ174TZvhoC4E7Q33BvFNyA",
+    href: "https://www.youtube.com/@ravitamta.",
     color: "hover:bg-red-500"
   }, {
     name: "Instagram",
     icon: Instagram,
-    href: "https://instagram.com/hapida.in",
+    href: "https://www.instagram.com/ravitamta.3/",
     color: "hover:bg-pink-500"
   }, {
     name: "Facebook",
     icon: Facebook,
-    href: "https://facebook.com/hapida",
+    href: "https://www.facebook.com/people/Ravi-Tamta/100008829753247/",
     color: "hover:bg-blue-600"
   }, {
     name: "Twitter",
     icon: Twitter,
-    href: "https://twitter.com/hapida",
+    href: "https://x.com/RAVITAMTA3",
     color: "hover:bg-sky-500"
   }];
   const quickLinks = [{
