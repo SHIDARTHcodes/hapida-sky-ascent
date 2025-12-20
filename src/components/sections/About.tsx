@@ -100,7 +100,7 @@ const About = () => {
               
               {/* Floating achievement card */}
               <div className="absolute -right-4 md:-right-8 top-8 glass p-5 rounded-2xl shadow-elevated animate-float max-w-[200px]">
-                <Award className="w-10 h-10 text-amber-500 mb-3" />
+                <Award className="w-6 h-6 text-amber-500 mb-2" />
                 <p className="text-sm font-semibold text-foreground">Honored by Uttarakhand Government</p>
               </div>
 
