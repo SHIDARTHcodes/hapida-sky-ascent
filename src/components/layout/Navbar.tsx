@@ -39,7 +39,7 @@ const Navbar = () => {
             <img 
               src={hapidaLogo} 
               alt="HAPIDA SKY Private Limited" 
-              className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+              className="h-12 sm:h-14 w-auto object-contain brightness-110 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)] group-hover:scale-105 group-hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.8)] transition-all duration-300 animate-[pulse_3s_ease-in-out_infinite]"
             />
           </Link>
 
