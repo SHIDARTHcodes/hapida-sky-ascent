@@ -29,26 +29,25 @@ const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
           ? "glass py-3 shadow-soft"
-          : "bg-transparent py-6"
+          : "bg-transparent py-4 md:py-6"
       }`}
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
+          
           {/* Logo */}
           <Link to="/" className="flex items-center group">
-
-            <img 
-              src={hapidaLogo} 
-              alt="HAPIDA SKY Private Limited" 
-              className="h-16 sm:h-20 w-auto object-contain"
-
+            <img
+              src={hapidaLogo}
+              alt="HAPIDA SKY Private Limited"
+              className="h-10 sm:h-14 md:h-16 lg:h-20 w-auto object-contain flex-shrink-0"
             />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              link.href.startsWith('/') && !link.href.includes('#') ? (
+            {navLinks.map((link) =>
+              link.href.startsWith("/") && !link.href.includes("#") ? (
                 <Link
                   key={link.name}
                   to={link.href}
@@ -65,13 +64,19 @@ const Navbar = () => {
                   {link.name}
                 </a>
               )
-            ))}
+            )}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button (Desktop) */}
           <div className="hidden md:block">
             <Button variant="hero" size="sm" asChild>
-              <a href="https://wa.me/919410915009" target="_blank" rel="noopener noreferrer">Connect Now</a>
+              <a
+                href="https://wa.me/919410915009"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Connect Now
+              </a>
             </Button>
           </div>
 
@@ -88,8 +93,8 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-up">
             <div className="flex flex-col gap-2 bg-white rounded-2xl p-4 shadow-elevated">
-              {navLinks.map((link, index) => (
-                link.href.startsWith('/') && !link.href.includes('#') ? (
+              {navLinks.map((link, index) =>
+                link.href.startsWith("/") && !link.href.includes("#") ? (
                   <Link
                     key={link.name}
                     to={link.href}
@@ -110,9 +115,17 @@ const Navbar = () => {
                     {link.name}
                   </a>
                 )
-              ))}
+              )}
+
               <Button variant="hero" size="default" className="mt-2" asChild>
-                <a href="https://wa.me/919410915009" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>Connect Now</a>
+                <a
+                  href="https://wa.me/919410915009"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Connect Now
+                </a>
               </Button>
             </div>
           </div>
