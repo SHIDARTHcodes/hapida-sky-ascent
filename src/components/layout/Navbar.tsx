@@ -35,11 +35,11 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center group">
+          <Link to="/" className="flex items-center group bg-white/80 backdrop-blur-sm rounded-xl px-3 py-2 shadow-soft">
             <img 
               src={hapidaLogo} 
               alt="HAPIDA SKY Private Limited" 
-              className="h-16 sm:h-20 w-auto object-contain animate-logo-premium brightness-150 contrast-125 saturate-125 drop-shadow-[0_0_15px_rgba(255,255,255,0.9)] group-hover:scale-110 transition-transform duration-300"
+              className="h-16 sm:h-20 w-auto object-contain animate-logo-premium brightness-110 contrast-110 group-hover:scale-110 transition-transform duration-300"
             />
           </Link>
 
