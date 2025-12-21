@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import hapidaLogo from "@/assets/hapida-logo.png";
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "About", href: "/#about" },
     { name: "Innovations", href: "/#innovations" },
-    { name: "Shop", href: "/#shop" },
+    { name: "Shop", href: "/shop" },
     { name: "Contact", href: "/#contact" },
   ];
 
@@ -35,11 +35,13 @@ const Navbar = () => {
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center group bg-white rounded-xl px-3 py-2 shadow-soft">
-            <img
-              src={hapidaLogo}
-              alt="HAPIDA SKY Private Limited"
-              className="h-10 sm:h-14 md:h-20 w-auto object-contain animate-logo-premium group-hover:scale-110 transition-transform duration-300"
+          <Link to="/" className="flex items-center group">
+
+            <img 
+              src={hapidaLogo} 
+              alt="HAPIDA SKY Private Limited" 
+              className="h-16 sm:h-20 w-auto object-contain"
+
             />
           </Link>
 
