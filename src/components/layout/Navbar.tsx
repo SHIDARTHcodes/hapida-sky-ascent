@@ -39,7 +39,8 @@ const Navbar = () => {
             <img 
               src={hapidaLogo} 
               alt="HAPIDA SKY Private Limited" 
-              className="h-16 sm:h-20 w-auto object-contain animate-logo-premium group-hover:scale-110 transition-transform duration-300"
+              className="h-16 sm:h-20 w-auto object-contain"
+
             />
           </Link>
 
