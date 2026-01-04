@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import hapidaLogo from "@/assets/hapida-logo.png";
 
 const Navbar = () => {
@@ -34,19 +34,21 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo - अब स्क्रॉल पर hide होगा */}
           <Link to="/" className="flex items-center group">
-            <img 
-              src={hapidaLogo} 
-              alt="HAPIDA SKY Private Limited" 
-              className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            <img
+              src={hapidaLogo}
+              alt="HAPIDA SKY Private Limited"
+              className={`h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-all duration-500 ${
+                isScrolled ? "opacity-0 scale-95" : "opacity-100 scale-100"
+              }`}
             />
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              link.href.startsWith('/') && !link.href.includes('#') ? (
+              link.href.startsWith("/") && !link.href.includes("#") ? (
                 <Link
                   key={link.name}
                   to={link.href}
@@ -69,7 +71,9 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="hero" size="sm" asChild>
-              <a href="https://wa.me/919410915009" target="_blank" rel="noopener noreferrer">Connect Now</a>
+              <a href="https://wa.me/919410915009" target="_blank" rel="noopener noreferrer">
+                Connect Now
+              </a>
             </Button>
           </div>
 
@@ -87,7 +91,7 @@ const Navbar = () => {
           <div className="md:hidden mt-4 pb-4 animate-fade-up">
             <div className="flex flex-col gap-2 bg-white rounded-2xl p-4 shadow-elevated">
               {navLinks.map((link, index) => (
-                link.href.startsWith('/') && !link.href.includes('#') ? (
+                link.href.startsWith("/") && !link.href.includes("#") ? (
                   <Link
                     key={link.name}
                     to={link.href}
@@ -110,7 +114,14 @@ const Navbar = () => {
                 )
               ))}
               <Button variant="hero" size="default" className="mt-2" asChild>
-                <a href="https://wa.me/919410915009" target="_blank" rel="noopener noreferrer" onClick={() => setIsMobileMenuOpen(false)}>Connect Now</a>
+                <a
+                  href="https://wa.me/919410915009"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Connect Now
+                </a>
               </Button>
             </div>
           </div>
